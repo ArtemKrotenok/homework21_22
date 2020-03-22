@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add shop</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>ADD SHOP</h1>
+    <a href="/home" th:href="@{/home}">Go to menu</a>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form action="#" method="post" th:action="@{/shops}" th:object="${shop}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" name="name" id="name" type="text" required>
+                    <label for="location">Location</label>
+                    <input class="form-control" name="location" id="location" type="text" required>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

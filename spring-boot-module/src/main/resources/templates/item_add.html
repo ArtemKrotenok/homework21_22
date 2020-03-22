@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add shop</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>ADD ITEM</h1>
+    <a href="/home" th:href="@{/home}">Go to menu</a>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form action="#" method="post" th:action="@{/items}" th:object="${item}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" name="name" id="name" type="text" required>
+                    <label for="description">Description</label>
+                    <input class="form-control" name="description" id="description" type="text" required>
+                    <label for="price">Price</label>
+                    <input class="form-control" name="price" id="price" type="text" required>
+                </div>
+                <div class="form-check form-check-inline" th:each="shop : ${shops}">
+                    <input class="form-check-input" type="checkbox" id="selectedShopsIdList" name="selectedShopsIdList"
+                           th:value="${shop.id}">
+                    <label class="form-check-label" th:for="${shop.id}" th:text="${shop.name}"></label>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

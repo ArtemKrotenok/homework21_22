@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>HOME PAGE</h1>
+    <a href="/items" th:href="@{/items}">View all items</a> <br>
+    <a href="/items/add" th:href="@{/items/add}">Add item</a> <br>
+    <a href="/shops" th:href="@{/shops}">View all shops</a> <br>
+    <a href="/shops/add" th:href="@{/shops/add}">Add shop</a> <br>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
