@@ -1,9 +1,16 @@
 package com.gmail.artemkrotenok.mvc.service.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ShopDTO {
     private Long id;
-    private String location;
+    @NotNull(message = "name size must be between 1 and 100 characters")
+    @Size(min = 1, max = 100, message = "name size must be between 1 and 100 characters")
     private String name;
+    @NotNull(message = "location size must be between 1 and 100 characters")
+    @Size(min = 1, max = 100, message = "location size must be between 1 and 100 characters")
+    private String location;
 
     public Long getId() {
         return id;

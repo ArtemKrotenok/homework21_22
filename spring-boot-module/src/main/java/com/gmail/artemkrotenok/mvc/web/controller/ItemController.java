@@ -13,8 +13,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("items")
+@RequestMapping("/items")
 public class ItemController {
+
     private final ItemService itemService;
     private final ShopService shopService;
 
@@ -53,18 +54,13 @@ public class ItemController {
 
     @PostMapping
     public String addItem(
+            Model model,
             @Valid @ModelAttribute(name = "item") ItemDTO itemDTO,
-            @RequestParam(name = "selectedShopsIdList") String[] selectedShopsIdList,
-            BindingResult bindingResult,
-            Model model
+            BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("item", itemDTO);
             return "item_add";
-        }
-        for (String selectedShopsId : selectedShopsIdList) {
-            ShopDTO shopDTO = shopService.findById(Long.parseLong(selectedShopsId));
-            itemDTO.getShops().add(shopDTO);
         }
         itemService.add(itemDTO);
         return "redirect:/items";

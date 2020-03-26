@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +23,7 @@ public class ItemDetails {
     @PrimaryKeyJoinColumn
     private Item item;
     @Column(name = "price")
-    private String price;
+    private BigDecimal price;
 
     public Long getItemId() {
         return itemId;
@@ -40,11 +41,11 @@ public class ItemDetails {
         this.item = item;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -54,12 +55,11 @@ public class ItemDetails {
         if (o == null || getClass() != o.getClass()) return false;
         ItemDetails that = (ItemDetails) o;
         return Objects.equals(itemId, that.itemId) &&
-                Objects.equals(item, that.item) &&
                 Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemId, item, price);
+        return Objects.hash(itemId, price);
     }
 }

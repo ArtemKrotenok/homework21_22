@@ -15,6 +15,13 @@
             <th>Name</th>
             <th>Location</th>
         </tr>
+        <div th:if="${shops.isEmpty()}">
+            <tr>
+                <td>
+                    Shops list empty
+                </td>
+            </tr>
+        </div>
         <tr th:each="shop : ${shops}">
             <td th:text="${shop.id}"></td>
             <td th:text="${shop.name}"></td>

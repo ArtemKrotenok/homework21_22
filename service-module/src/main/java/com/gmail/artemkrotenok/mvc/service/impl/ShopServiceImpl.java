@@ -4,6 +4,7 @@ import com.gmail.artemkrotenok.mvc.repository.ShopRepository;
 import com.gmail.artemkrotenok.mvc.repository.model.Shop;
 import com.gmail.artemkrotenok.mvc.service.ShopService;
 import com.gmail.artemkrotenok.mvc.service.model.ShopDTO;
+import com.gmail.artemkrotenok.mvc.service.util.ShopConverterUtil;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Service
 public class ShopServiceImpl implements ShopService {
-    ShopRepository shopRepository;
+
+    private final ShopRepository shopRepository;
 
     public ShopServiceImpl(ShopRepository shopRepository) {
         this.shopRepository = shopRepository;
@@ -21,7 +23,7 @@ public class ShopServiceImpl implements ShopService {
     @Override
     @Transactional
     public void add(ShopDTO shopDTO) {
-        Shop shop = getObjectFromDTO(shopDTO);
+        Shop shop = ShopConverterUtil.getObjectFromDTO(shopDTO);
         shopRepository.persist(shop);
     }
 
@@ -36,30 +38,14 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public ShopDTO findById(Long id) {
         Shop shop = shopRepository.findById(id);
-        return getDTOFromObject(shop);
+        return ShopConverterUtil.getDTOFromObject(shop);
     }
 
     private List<ShopDTO> convertShopListToShopListDTO(List<Shop> shopList) {
         List<ShopDTO> shopDTOList = new ArrayList<>();
         for (Shop shop : shopList) {
-            shopDTOList.add(getDTOFromObject(shop));
+            shopDTOList.add(ShopConverterUtil.getDTOFromObject(shop));
         }
         return shopDTOList;
-    }
-
-    public static ShopDTO getDTOFromObject(Shop shop) {
-        ShopDTO shopDTO = new ShopDTO();
-        shopDTO.setId(shop.getId());
-        shopDTO.setName(shop.getName());
-        shopDTO.setLocation(shop.getLocation());
-        return shopDTO;
-    }
-
-    public static Shop getObjectFromDTO(ShopDTO shopDTO) {
-        Shop shop = new Shop();
-        shop.setId(shopDTO.getId());
-        shop.setName(shopDTO.getName());
-        shop.setLocation(shopDTO.getLocation());
-        return shop;
     }
 }

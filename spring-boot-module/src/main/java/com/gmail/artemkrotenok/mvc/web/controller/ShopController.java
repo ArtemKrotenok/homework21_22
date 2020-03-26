@@ -14,8 +14,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("shops")
+@RequestMapping("/shops")
 public class ShopController {
+
     private final ShopService shopService;
 
     public ShopController(ShopService shopService) {
@@ -35,11 +36,11 @@ public class ShopController {
         return "shop_add";
     }
 
-    @PostMapping
+    @PostMapping()
     public String addShop(
+            Model model,
             @Valid @ModelAttribute(name = "shop") ShopDTO shopDTO,
-            BindingResult bindingResult,
-            Model model
+            BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("shop", shopDTO);

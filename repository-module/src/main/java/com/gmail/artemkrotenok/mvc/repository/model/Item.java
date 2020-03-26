@@ -13,6 +13,7 @@ public class Item {
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
+
     private String name;
     @Column(name = "description")
     private String description;
@@ -25,7 +26,7 @@ public class Item {
     private ItemDetails itemDetails;
 
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST
+            cascade = {CascadeType.PERSIST,CascadeType.MERGE}
     )
     @JoinTable(
             name = "item_shop",

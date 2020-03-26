@@ -9,10 +9,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
+
     protected Class<T> entityClass;
     @PersistenceContext
     private EntityManager entityManager;
 
+    @SuppressWarnings("unchecked")
     public GenericRepositoryImpl() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
@@ -41,6 +43,7 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         String query = "from " + entityClass.getName() + " c";
         Query q = entityManager.createQuery(query);
