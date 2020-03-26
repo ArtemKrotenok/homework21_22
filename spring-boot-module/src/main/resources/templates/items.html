@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>ITEMS LIST</h1>
+    <a href="/home" th:href="@{/home}">Go to menu</a>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Show</th>
+            <th>Delete</th>
+        </tr>
+        <div th:if="${items.isEmpty()}">
+            <tr>
+                <td>
+                    Items list empty
+                </td>
+            </tr>
+        </div>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.description}"></td>
+            <td th:text="${item.price}"></td>
+            <td><a th:href="@{/items/{id}(id=${item.id})}">View</a></td>
+            <td><a th:href="@{/items/delete/{id}(id=${item.id})}">Delete</a></td>
+        </tr>
+    </table>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
