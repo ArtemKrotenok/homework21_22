@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "item_details")
 public class ItemDetails {
+
     @GenericGenerator(
             name = "generator",
             strategy = "foreign",

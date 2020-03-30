@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add user</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>ADD USER</h1>
+    <a href="/home" th:href="@{/home}">Go to menu</a>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form action="#" method="post" th:action="@{/users}" th:object="${user}">
+                <div class="form-group">
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br>
+                    <label for="username">Username</label>
+                    <input class="form-control" th:field="*{username}" name="username" id="username" type="text"
+                           pattern="^[a-zA-Z0-9]+$" maxlength="100" required>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
+                    <label for="password">Password</label>
+                    <input class="form-control" th:field="*{password}" name="password" id="password" type="password"
+                           pattern="^[a-zA-Z0-9]+$" maxlength="100" required>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="role_admin" value="ROLE_ADMIN">
+                        <label class="form-check-label" for="role_admin">Has ADMIN role</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="role_user" value="ROLE_USER">
+                        <label class="form-check-label" for="role_user">Has USER role</label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

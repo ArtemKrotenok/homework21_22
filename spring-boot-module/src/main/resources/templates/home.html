@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<html xmlns:sec="http://www.springframework.org/security/tags" xmlns:th="http://www.thymeleaf.org">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home page</title>
@@ -8,10 +9,19 @@
 <body>
 <div class="container">
     <h1>HOME PAGE</h1>
-    <a href="/items" th:href="@{/items}">View all items</a> <br>
-    <a href="/items/add" th:href="@{/items/add}">Add item</a> <br>
-    <a href="/shops" th:href="@{/shops}">View all shops</a> <br>
-    <a href="/shops/add" th:href="@{/shops/add}">Add shop</a> <br>
+    <div sec:authorize="hasRole('USER')">
+        <a href="/items/page/1" th:href="@{/items/page/1}">View all items</a><br>
+        <a href="/items/add" th:href="@{/items/add}">Add item</a><br>
+        <a href="/items/search" th:href="@{/items/search}">Search items</a><br>
+    </div>
+    <div sec:authorize="hasRole('ADMIN')">
+        <a href="/shops" th:href="@{/shops}">View all shops</a><br>
+        <a href="/shops/add" th:href="@{/shops/add}">Add shop</a><br>
+        <a href="/shops/search" th:href="@{/shops/search}">Search shops</a><br>
+    </div>
+    <br><br>
+    <a href="/users/add" th:href="@{/users/add}">Add user</a><br><br>
+    <span sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></span>
 </div>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>

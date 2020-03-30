@@ -12,7 +12,7 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
 
     protected Class<T> entityClass;
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
     public GenericRepositoryImpl() {
@@ -45,8 +45,18 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
     @Override
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        String query = "from " + entityClass.getName() + " c";
-        Query q = entityManager.createQuery(query);
-        return q.getResultList();
+        String hql = "from " + entityClass.getName();
+        Query query = entityManager.createQuery(hql);
+        return query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getItemsByPage(int startPosition, int itemsByPage) {
+        String hql = "from " + entityClass.getName();
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(startPosition);
+        query.setMaxResults(itemsByPage);
+        return query.getResultList();
     }
 }

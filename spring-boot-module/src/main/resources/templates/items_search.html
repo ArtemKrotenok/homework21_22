@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>SEARCH ITEM</h1>
+    <a href="/home" th:href="@{/home}">Go to menu</a>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form action="#" method="post" th:action="@{/items/search}" th:object="${searchItem}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" name="name" id="name" type="text"
+                           pattern="^[a-zA-Z0-9]+$" maxlength="100">
+                    <label for="description">Description</label>
+                    <input class="form-control" name="description" id="description"
+                           type="text"
+                           pattern="^[a-zA-Z0-9]+$" maxlength="100">
+                    <label for="minPrice">Min price</label>
+                    <input class="form-control" name="price" id="minPrice" type="text"
+                           pattern="^[0-9]+$" maxlength="19">
+                    <label for="maxPrice">Max price</label>
+                    <input class="form-control" name="maxPrice" id="maxPrice" type="text"
+                           pattern="^[0-9]+$" maxlength="19">
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

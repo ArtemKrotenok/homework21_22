@@ -4,6 +4,7 @@ import com.gmail.artemkrotenok.mvc.repository.ShopRepository;
 import com.gmail.artemkrotenok.mvc.repository.model.Shop;
 import com.gmail.artemkrotenok.mvc.service.ShopService;
 import com.gmail.artemkrotenok.mvc.service.model.ShopDTO;
+import com.gmail.artemkrotenok.mvc.service.model.ShopSearchDTO;
 import com.gmail.artemkrotenok.mvc.service.util.ShopConverterUtil;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,13 @@ public class ShopServiceImpl implements ShopService {
     public ShopDTO findById(Long id) {
         Shop shop = shopRepository.findById(id);
         return ShopConverterUtil.getDTOFromObject(shop);
+    }
+
+    @Override
+    @Transactional
+    public List<ShopDTO> searchByParameters(ShopSearchDTO shopSearchDTO) {
+        List<Shop> shops = shopRepository.searchByParameters(shopSearchDTO.getLocation());
+        return convertShopListToShopListDTO(shops);
     }
 
     private List<ShopDTO> convertShopListToShopListDTO(List<Shop> shopList) {

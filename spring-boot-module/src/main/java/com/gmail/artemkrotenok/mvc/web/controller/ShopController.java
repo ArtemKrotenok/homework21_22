@@ -2,6 +2,7 @@ package com.gmail.artemkrotenok.mvc.web.controller;
 
 import com.gmail.artemkrotenok.mvc.service.ShopService;
 import com.gmail.artemkrotenok.mvc.service.model.ShopDTO;
+import com.gmail.artemkrotenok.mvc.service.model.ShopSearchDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +25,24 @@ public class ShopController {
     }
 
     @GetMapping()
-    public String getShops(Model model) {
+    public String getShopsPage(Model model) {
         List<ShopDTO> shopsDTO = shopService.findAll();
         model.addAttribute("shops", shopsDTO);
         return "shops";
+    }
+
+    @GetMapping("/search")
+    public String getSearchShopPage() {
+        return "shops_search";
+    }
+
+    @PostMapping("/search")
+    public String getResultSearch(
+            @ModelAttribute(name = "shopSearch") ShopSearchDTO shopSearchDTO,
+            Model model) {
+        List<ShopDTO> shopsDTO = shopService.searchByParameters(shopSearchDTO);
+        model.addAttribute("shops", shopsDTO);
+        return "shops_search_result";
     }
 
     @GetMapping("/add")

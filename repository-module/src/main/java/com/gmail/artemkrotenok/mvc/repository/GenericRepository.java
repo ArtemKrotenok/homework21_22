@@ -3,6 +3,7 @@ package com.gmail.artemkrotenok.mvc.repository;
 import java.util.List;
 
 public interface GenericRepository<I, T> {
+
     void persist(T entity);
 
     void merge(T entity);
@@ -12,4 +13,6 @@ public interface GenericRepository<I, T> {
     T findById(I id);
 
     List<T> findAll();
+
+    List<T> getItemsByPage(int startPosition, int itemsByPage);
 }

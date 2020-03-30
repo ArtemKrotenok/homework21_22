@@ -31,9 +31,7 @@
                 </div>
                 Shops list:<br>
                 <div th:if="${shops.isEmpty()}">
-                    Shops list empty
-                    (for select <a href="/shops/add" th:href="@{/shops/add}">add new shop</a>)
-                    <br>
+                    Shops list empty<br>
                 </div>
                 <div class="form-check form-check-inline" th:each="shop : ${shops}">
                     <input class="form-check-input" type="checkbox" id="shopIds" name="shopIds"

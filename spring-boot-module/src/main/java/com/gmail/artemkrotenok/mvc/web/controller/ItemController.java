@@ -3,6 +3,7 @@ package com.gmail.artemkrotenok.mvc.web.controller;
 import com.gmail.artemkrotenok.mvc.service.ItemService;
 import com.gmail.artemkrotenok.mvc.service.ShopService;
 import com.gmail.artemkrotenok.mvc.service.model.ItemDTO;
+import com.gmail.artemkrotenok.mvc.service.model.ItemSearchDTO;
 import com.gmail.artemkrotenok.mvc.service.model.ShopDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,18 @@ public class ItemController {
         this.shopService = shopService;
     }
 
-    @GetMapping()
-    public String getItems(Model model) {
-        List<ItemDTO> itemsDTO = itemService.findAll();
+    @GetMapping("page/{numberPage}")
+    public String getItemsPage(@PathVariable int numberPage, Model model) {
+        Long countItems = itemService.getCountItems();
+        model.addAttribute("countItems", countItems);
+        model.addAttribute("page", numberPage);
+        List<ItemDTO> itemsDTO = itemService.getItemsByPage(numberPage);
         model.addAttribute("items", itemsDTO);
         return "items";
     }
 
     @GetMapping("/{id}")
-    public String getItem(@PathVariable Long id, Model model) {
+    public String getItemPage(@PathVariable Long id, Model model) {
         ItemDTO itemDTO = itemService.findById(id);
         model.addAttribute("item", itemDTO);
         return "item";
@@ -50,6 +54,23 @@ public class ItemController {
         List<ShopDTO> shopsDTO = shopService.findAll();
         model.addAttribute("shops", shopsDTO);
         return "item_add";
+    }
+
+    @GetMapping("/search")
+    public String getItemSearchPage(Model model) {
+        model.addAttribute("searchItem", new ItemSearchDTO());
+        return "items_search";
+    }
+
+    @PostMapping("/search")
+    public String getResultSearch(
+            @ModelAttribute(name = "itemSearch") ItemSearchDTO itemSearchDTO,
+            Model model) {
+        Long countItems = itemService.getCountItemsForResultSearch(itemSearchDTO);
+        model.addAttribute("countItems", countItems);
+        List<ItemDTO> itemsDTO = itemService.searchByParameters(itemSearchDTO);
+        model.addAttribute("items", itemsDTO);
+        return "items_search_result";
     }
 
     @PostMapping

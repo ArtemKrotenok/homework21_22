@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDTO {
+
     private Long id;
     @NotNull(message = "name size must be between 1 and 100 characters")
     @Size(min = 1, max = 100, message = "name size must be between 1 and 100 characters")

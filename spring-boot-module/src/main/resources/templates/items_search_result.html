@@ -7,9 +7,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>ITEMS LIST</h1>
+    <h1>ITEMS SEARCH RESULT LIST</h1>
     <a href="/home" th:href="@{/home}">Go to menu</a><br>
-    Fount <span th:text="${countItems}"></span> items<br>
+    Fount <span th:text="${countItems}">0</span> items<br>
     <table class="table table-striped">
         <tr>
             <th>Id</th>
@@ -35,16 +35,6 @@
             <td><a th:href="@{/items/delete/{id}(id=${item.id})}">Delete</a></td>
         </tr>
     </table>
-    <div class="col">
-        <div>
-            <div th:if="(${countItems}-${page}*10)>0">
-                <a th:href="@{/items/page/{page}(page=${page}+1)}">Next page</a>
-            </div>
-            <div th:if="${page}>1">
-                <a th:href="@{/items/page/{page}(page=${page}-1)}">Previous page</a>
-            </div>
-        </div>
-    </div>
 </div>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>

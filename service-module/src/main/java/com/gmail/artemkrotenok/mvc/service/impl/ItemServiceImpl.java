@@ -7,13 +7,17 @@ import com.gmail.artemkrotenok.mvc.repository.model.ItemDetails;
 import com.gmail.artemkrotenok.mvc.repository.model.Shop;
 import com.gmail.artemkrotenok.mvc.service.ItemService;
 import com.gmail.artemkrotenok.mvc.service.model.ItemDTO;
+import com.gmail.artemkrotenok.mvc.service.model.ItemSearchDTO;
 import com.gmail.artemkrotenok.mvc.service.model.ShopDTO;
 import com.gmail.artemkrotenok.mvc.service.util.ShopConverterUtil;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.gmail.artemkrotenok.mvc.service.constants.PageConstants.ITEMS_BY_PAGE;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -52,6 +56,53 @@ public class ItemServiceImpl implements ItemService {
     public void deleteById(Long id) {
         Item item = itemRepository.findById(id);
         itemRepository.remove(item);
+    }
+
+    @Override
+    @Transactional
+    public List<ItemDTO> getItemsByPage(int page) {
+        int startPosition = ((page - 1) * ITEMS_BY_PAGE + 1) - 1;
+        List<Item> items = itemRepository.getItemsByPage(startPosition, ITEMS_BY_PAGE);
+        return convertItemListToItemListDTO(items);
+    }
+
+    @Override
+    @Transactional
+    public List<ItemDTO> searchByParameters(ItemSearchDTO itemSearchDTO) {
+        itemSearchDTO = formatetSearchDTO(itemSearchDTO);
+        List<Item> items = itemRepository.searchByParameters(
+                itemSearchDTO.getName(),
+                itemSearchDTO.getDescription(),
+                itemSearchDTO.getMinPrice(),
+                itemSearchDTO.getMaxPrice());
+        return convertItemListToItemListDTO(items);
+    }
+
+    @Override
+    @Transactional
+    public Long getCountItems() {
+        return itemRepository.getCountItems();
+    }
+
+    @Override
+    @Transactional
+    public Long getCountItemsForResultSearch(ItemSearchDTO itemSearchDTO) {
+        itemSearchDTO = formatetSearchDTO(itemSearchDTO);
+        return itemRepository.getCountItemsForResultSearch(
+                itemSearchDTO.getName(),
+                itemSearchDTO.getDescription(),
+                itemSearchDTO.getMinPrice(),
+                itemSearchDTO.getMaxPrice());
+    }
+
+    private ItemSearchDTO formatetSearchDTO(ItemSearchDTO itemSearchDTO) {
+        if (itemSearchDTO.getMinPrice() == null) {
+            itemSearchDTO.setMinPrice(BigDecimal.ZERO);
+        }
+        if (itemSearchDTO.getMaxPrice() == null) {
+            itemSearchDTO.setMaxPrice(BigDecimal.valueOf(Double.MAX_VALUE));
+        }
+        return itemSearchDTO;
     }
 
     private List<ItemDTO> convertItemListToItemListDTO(List<Item> itemList) {

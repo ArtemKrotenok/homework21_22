@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class ShopDTO {
+
     private Long id;
     @NotNull(message = "name size must be between 1 and 100 characters")
     @Size(min = 1, max = 100, message = "name size must be between 1 and 100 characters")
